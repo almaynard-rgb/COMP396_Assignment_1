@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01156d367b4b90d4b9f9872b1c414f18
+guid: 74772b1d7c8a3814c88bc95e5070018c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: 4
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -136,12 +136,96 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: middleground_0
+      name: clouds_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f012f813fd9217c4b8b59975011b6d4d
+      internalID: -1146749525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clouds_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd62ebe97008d2e46bb1512e99ef8439
+      internalID: -308228516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clouds_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae7662122338824448eefa2246d7848d
+      internalID: -1594648480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clouds_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdd4defdf7d6a064ead41cf38de14d47
+      internalID: -1750045010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: clouds_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
+        width: 32
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -150,40 +234,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 125ff885f7287984696a0983c63ace77
-      internalID: -1328098848
+      spriteID: 3d2a63a572688ad4fbc24d427a88fa4d
+      internalID: 475395972
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: middleground_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 499364874bba9914dbedb00da979a171
-      internalID: 1602749811
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: middleground_2
+      name: clouds_5
       rect:
         serializedVersion: 2
         x: 32
         y: 0
-        width: 16
+        width: 32
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -192,40 +255,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8b374cfbe488a2c4790a98b15681d42e
-      internalID: -1213541872
+      spriteID: 22f54a3608e9d1b4090933b2ae45e629
+      internalID: -2016372464
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: middleground_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2912d60f51c9269419a4ba52505f8c6e
-      internalID: -1498766849
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: middleground_4
+      name: clouds_6
       rect:
         serializedVersion: 2
         x: 64
         y: 0
-        width: 16
+        width: 32
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -234,40 +276,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 15da80f14be0cc840ad12a6ab807efc7
-      internalID: 2013787322
+      spriteID: 1b6e917e86d985545a2a40d52d20b7f9
+      internalID: -231699082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: middleground_5
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ed5307b3190816147a8f9fcb3c054d1c
-      internalID: 1015414431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: middleground_6
+      name: clouds_7
       rect:
         serializedVersion: 2
         x: 96
         y: 0
-        width: 16
+        width: 32
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -276,29 +297,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec20379dff9ff064c8944c59a249b337
-      internalID: 562368271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: middleground_7
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 626fe84939c5c354d9eb88e9d2a81fb8
-      internalID: 1564758617
+      spriteID: 30e5bbc64186d294a8307f195fbb48ca
+      internalID: -227233012
       vertices: []
       indices: 
       edges: []
@@ -314,14 +314,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      middleground_0: -1328098848
-      middleground_1: 1602749811
-      middleground_2: -1213541872
-      middleground_3: -1498766849
-      middleground_4: 2013787322
-      middleground_5: 1015414431
-      middleground_6: 562368271
-      middleground_7: 1564758617
+      clouds_0: -1146749525
+      clouds_1: -308228516
+      clouds_2: -1594648480
+      clouds_3: -1750045010
+      clouds_4: 475395972
+      clouds_5: -2016372464
+      clouds_6: -231699082
+      clouds_7: -227233012
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
