@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -77,17 +78,26 @@ public class CrabController : MonoBehaviour
 
     void PatrolOnFrame()
     {
+        Debug.Log("Patrol.onFrame");
+        Patrol();
+    }
+
+    private void Patrol()
+    {
         //decides which point the platform should move to at any given time
         if (transform.position == positions[0].position)
         {
             nextPosition = positions[1].position;
-        } else if (transform.position == positions[1].position)
+        }
+        else if (transform.position == positions[1].position)
         {
             nextPosition = positions[2].position;
-        } else if (transform.position == positions[2].position)
+        }
+        else if (transform.position == positions[2].position)
         {
             nextPosition = positions[3].position;
-        } else if (transform.position == positions[3].position)
+        }
+        else if (transform.position == positions[3].position)
         {
             nextPosition = positions[0].position;
         }
@@ -95,7 +105,6 @@ public class CrabController : MonoBehaviour
         //moves the platform
         transform.position = Vector3.MoveTowards(transform.position, nextPosition, (speed * Time.deltaTime));
     }
-
 
     void ChaseOnFrame()
     {
@@ -121,6 +130,7 @@ public class CrabController : MonoBehaviour
     }
 
 
+    //to draw lines between waypoints
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(positions[0].position, positions[1].position);
