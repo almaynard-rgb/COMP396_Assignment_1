@@ -21,6 +21,14 @@ public class CrabController : MonoBehaviour
     public StateMachine stateMachine;
     public StateMachine.State patrol, chase, attack, runAway, damage; //maybe add death state
 
+    //Radiuses of crab
+    public float crabChaseRadius = 14.0f;
+    public float crabAttackRadius = 6.0f;
+    
+    
+    //reference for now 
+    //***********https://discussions.unity.com/t/how-do-you-check-if-a-game-object-is-in-the-radius-of-another-game-object/231352
+
 
     // Start is called before the first frame update
     void Start()
@@ -80,8 +88,20 @@ public class CrabController : MonoBehaviour
     {
         Debug.Log("Patrol.onFrame");
         Patrol();
+
+        //moves the platform
+        transform.position = Vector3.MoveTowards(transform.position, nextPosition, (speed * Time.deltaTime));
+
+        if (Vector3.Distance(player.transform.position, this.transform.position) < crabChaseRadius)
+        {
+            stateMachine.ChangeState(chase);
+        }
     }
 
+
+    /// <summary>
+    /// NEEDS MAJOR REFACTORING AND USE AS OBJECTIVELY ***FIX LATER WHEN YOU HAVE TIME***
+    /// </summary>
     private void Patrol()
     {
         //decides which point the platform should move to at any given time
@@ -101,22 +121,34 @@ public class CrabController : MonoBehaviour
         {
             nextPosition = positions[0].position;
         }
-
-        //moves the platform
-        transform.position = Vector3.MoveTowards(transform.position, nextPosition, (speed * Time.deltaTime));
     }
 
     void ChaseOnFrame()
     {
+        Debug.Log("Chase.onFrame");
+        Chase();
 
+        if (Vector3.Distance(player.transform.position, this.transform.position) < crabAttackRadius)
+        {
+            stateMachine.ChangeState(attack);
+        }
     }
 
+    private void Chase()
+    {
+        this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, (Time.deltaTime * speed));
+    }
 
     void AttackOnFrame()
     {
-
+        Debug.Log("Attack.onFrame");
+        Attack();
     }
 
+    private void Attack()
+    {
+        Debug.Log("Attacking!!!!!");
+    }
 
     void RunAwayOnFrame()
     {
@@ -133,6 +165,17 @@ public class CrabController : MonoBehaviour
     //to draw lines between waypoints
     private void OnDrawGizmos()
     {
+        //gizmo drawing for the crab chase radius
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawWireSphere(this.transform.position, crabChaseRadius);
+
+
+        //gizmo drawing for the crab attack radius
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position, crabAttackRadius);
+    
+        //gizmo drawings for between the crab waypoints
+        Gizmos.color = Color.yellow;
         Gizmos.DrawLine(positions[0].position, positions[1].position);
         Gizmos.DrawLine(positions[1].position, positions[2].position);
         Gizmos.DrawLine(positions[2].position, positions[3].position);

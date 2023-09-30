@@ -1723,12 +1723,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 36087921}
   health: 0
-  speed: 20
+  speed: 16
   positions:
   - {fileID: 1146580787}
   - {fileID: 250876368}
   - {fileID: 612672953}
   - {fileID: 1599649521}
+  crabChaseRadius: 14
+  crabAttackRadius: 6
 --- !u!1 &1115762602
 GameObject:
   m_ObjectHideFlags: 0
