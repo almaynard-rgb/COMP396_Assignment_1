@@ -11,19 +11,25 @@ public class StateMachine
         public System.Action onEnter; //When state is entered
         public System.Action onExit; //When state is exited from 
 
+        //toString override for the to return Name
         public override string ToString()
         {
             return Name;
         }
     }
 
+    //String, State dictionnary
     public Dictionary<string, State> states = new Dictionary<string, State>();
+    //initial and current states
     public State currentState { get; private set; }
     public State initialState;
 
+    //Create state constructor
     public State CreateState(string name)
     {
+        //new state
         State state = new State();
+        //set state name
         state.Name = name;
 
         if(states.Count == 0)
@@ -35,7 +41,6 @@ public class StateMachine
 
         return state;
     }
-
 
     // Update is called once per frame
     public void Update()
@@ -59,10 +64,10 @@ public class StateMachine
         }
     }
 
-
+    //change the state with new state
     public void ChangeState(State newState)
     {
-        //
+        //catch if newState is null
         if (newState == null)
         {
             Debug.LogError("*** Can't change to a null state! ***");
@@ -74,12 +79,9 @@ public class StateMachine
             currentState.onExit();
         }
 
-
         //change to newState
         Debug.LogFormat($"*** Changing from state {currentState} to state {newState} ***");
         currentState = newState;
-
-
 
         // do onEnter to the newState
         if (currentState.onEnter != null)
@@ -88,6 +90,7 @@ public class StateMachine
         }
     }
 
+    //change state with name check of newStateName
     public void ChangeState(string newStateName)
     {
         if (states.ContainsKey(newStateName))
@@ -99,6 +102,5 @@ public class StateMachine
             Debug.LogErrorFormat($"*** State machine doesn't have the state {newStateName} ***");
             return;
         }
-
     }
 }

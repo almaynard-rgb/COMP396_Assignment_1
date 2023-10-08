@@ -1,101 +1,104 @@
-//using System;
-//using System.Collections;
-//using System.Collections.Generic;
-//using System.Runtime.InteropServices;
-//using Unity.Burst.CompilerServices;
-//using Unity.VisualScripting.Antlr3.Runtime.Tree;
-//using UnityEngine.UIElements;
-//using static UnityEngine.EventSystems.EventTrigger;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CrabController : MonoBehaviour
+public class CrabFSM : MonoBehaviour
 {
+    public enum CrabState
+    {
+        //States of the crab enemy type
+        Roam, Hunt, Attack, Evade, Death
+    }
+
+    //Current state of the crab
+    public CrabState currentCrabState;
+
     //player variables
     public GameObject player;
-
 
     //crab variables
     public float health = 100;
     public float speed = 16;
-
+    
     //position variables
     private Vector3 nextPosition;
     public Transform[] positions = new Transform[4]; //startPosition, position1, position2, position3, position4;
-    
+
+
+
     //Radiuses of crab
     public float crabHuntRadius = 20.0f;
     public float crabAttackRadius = 8.0f;
-    
+
     //crab animator
     public Animator anim;
-    
-    //crab states declared
-    public StateMachine stateMachine;
-    public StateMachine.State roam, hunt, attack, evade, death;
-
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //new instance of StateMachine
-        stateMachine = new StateMachine();
-
-        //sets first waypoint on start()
+        //set initial position of crab to the first position transform
         nextPosition = positions[0].position;
-
-        //Use factory pattern
-        //roam state onEnter, onExit and onFrame calls
-        roam = stateMachine.CreateState("Roam");
-        roam.onEnter = delegate { Debug.Log("Roam.onEnter"); };
-        roam.onExit = delegate { Debug.Log("Roam.onExit"); };
-        roam.onFrame = RoamOnFrame;
-
-        //hunt state onEnter, onExit and onFrame calls
-        hunt = stateMachine.CreateState("Hunt");
-        hunt.onEnter = delegate { Debug.Log("Hunt.onEnter"); };
-        hunt.onExit = delegate { Debug.Log("Hunt.onExit"); };
-        hunt.onFrame = HuntOnFrame;
-
-        //attack state onEnter, onExit and onFrame calls
-        attack = stateMachine.CreateState("Attack");
-        attack.onEnter = delegate { Debug.Log("Attack.onEnter"); };
-        attack.onExit = delegate { Debug.Log("Attack.onExit"); };
-        attack.onFrame = AttackOnFrame;
-
-        //evade state onEnter, onExit and onFrame calls
-        evade = stateMachine.CreateState("Evade");
-        evade.onEnter = delegate { Debug.Log("Evade.onEnter"); };
-        evade.onExit = delegate { Debug.Log("Evade.onExit"); };
-        evade.onFrame = EvadeOnFrame;
-
-        //death state onEnter, onExit and onFrame calls
-        death = stateMachine.CreateState("Death");
-        death.onEnter = delegate { Debug.Log("Death.onEnter"); };
-        death.onExit = delegate { Debug.Log("Death.onExit"); };
-        death.onFrame = DeathOnFrame;
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        stateMachine.Update();
+        FSM();
     }
 
-    //OnFrame for the Roam state
-    void RoamOnFrame()
+    //All crab states handled by a switch statement that evaluates currentState
+    private void FSM()
     {
-        Debug.Log("Roam.onFrame");
+        switch(currentCrabState) 
+        {
+            //roam state
+            case CrabState.Roam:
+                HandleRoam();
+                break;
+            //hunt state
+            case CrabState.Hunt:
+                HandleHunt();
+                break;
+            //attack state
+            case CrabState.Attack:
+                HandleAttack();
+                break;
+            //evade state
+            case CrabState.Evade:
+                HandleEvade();
+                break;
+            //death state
+            case CrabState.Death:
+                HandleDeath();
+                break;
+            default:
+                break;
+        }
+    }
+
+    //Changes the crab state once called
+    private void ChangeCrabState(CrabState newCrabState)
+    {
+        //assigns currentCrabState state to the newCrabState
+        currentCrabState = newCrabState;
+    }
+
+    //Handles the Roam state
+    private void HandleRoam()
+    {
+        print("Roaming...");
         Roam();
 
         //transitions to other states
         if (SenseEnemy() && StrongEnough())
-            stateMachine.ChangeState(hunt);
+            ChangeCrabState(CrabState.Hunt);
         else if (NoHealth())
-            stateMachine.ChangeState(death);
+            ChangeCrabState(CrabState.Death);
         else if (SenseEnemy() && !StrongEnough())
-            stateMachine.ChangeState(evade);
+            ChangeCrabState(CrabState.Evade);
     }
 
     //Roam method (functionality)
@@ -105,30 +108,30 @@ public class CrabController : MonoBehaviour
         this.transform.position = Vector3.MoveTowards(this.transform.position, nextPosition, (Time.deltaTime * speed));
 
         //decides which point the nextPoint will be and therefore where the crab will move to at any given time
-        if (transform.position == positions[0].position)       
-            nextPosition = positions[1].position;       
-        else if (transform.position == positions[1].position)        
-            nextPosition = positions[2].position;        
-        else if (transform.position == positions[2].position)       
-            nextPosition = positions[3].position;        
-        else if (transform.position == positions[3].position)      
+        if (transform.position == positions[0].position)
+            nextPosition = positions[1].position;
+        else if (transform.position == positions[1].position)
+            nextPosition = positions[2].position;
+        else if (transform.position == positions[2].position)
+            nextPosition = positions[3].position;
+        else if (transform.position == positions[3].position)
             nextPosition = positions[0].position;
+   
     }
 
-
-    //OnFrame for the Hunt state
-    void HuntOnFrame()
+    //Handles the Hunt state
+    private void HandleHunt()
     {
-        Debug.Log("Hunt.onFrame");
+        print("Hunting...");
         Hunt();
 
         //transitions to other states
         if (!SenseEnemy())
-            stateMachine.ChangeState(roam);
+            ChangeCrabState(CrabState.Roam);
         else if (NoHealth())
-            stateMachine.ChangeState(death);
+            ChangeCrabState(CrabState.Death);
         else if (EnemyInAttackRange() && StrongEnough())
-            stateMachine.ChangeState(attack);
+            ChangeCrabState(CrabState.Attack);
     }
 
     //Hunt method (functionality)
@@ -138,27 +141,28 @@ public class CrabController : MonoBehaviour
         this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, (Time.deltaTime * speed));
     }
 
-    //OnFrame for the Attack state
-    void AttackOnFrame()
+
+    //Handles the Attack state
+    private void HandleAttack()
     {
-        Debug.Log("Attack.onFrame");
+        print("Attacking...");
         Attack();
 
         //transitions to other states. Each exit of state also ends the attack animation
         if (!StrongEnough())
         {
             anim.SetBool("isAttacking", false);
-            stateMachine.ChangeState(evade);
+            ChangeCrabState(CrabState.Evade);
         }
         else if (!EnemyInAttackRange() && StrongEnough())
         {
             anim.SetBool("isAttacking", false);
-            stateMachine.ChangeState(hunt);
+            ChangeCrabState(CrabState.Hunt);
         }
         else if (NoHealth())
         {
             anim.SetBool("isAttacking", false);
-            stateMachine.ChangeState(death);
+            ChangeCrabState(CrabState.Death);
         }
     }
 
@@ -170,18 +174,19 @@ public class CrabController : MonoBehaviour
         anim.SetBool("isAttacking", true);
     }
 
-    //OnFrame for the Evade state
-    void EvadeOnFrame()
+    //Handles the Evade state
+    private void HandleEvade()
     {
-        Debug.Log("Evade.onFrame");
+        print("Evading...");
         Evade();
 
-        if (!SenseEnemy())       
-            stateMachine.ChangeState(roam);  
-        else if (NoHealth())       
-            stateMachine.ChangeState(death);     
-        else if(StrongEnough() && SenseEnemy())
-            stateMachine.ChangeState(hunt);
+        //transitions to other states
+        if (!SenseEnemy())
+            ChangeCrabState(CrabState.Roam);
+        else if (NoHealth())
+            ChangeCrabState(CrabState.Death);
+        else if (StrongEnough() && SenseEnemy())
+            ChangeCrabState(CrabState.Hunt);
     }
 
     //Evade method (functionality)
@@ -191,13 +196,14 @@ public class CrabController : MonoBehaviour
         this.transform.position = Vector3.MoveTowards(this.transform.position, player.transform.position, (Time.deltaTime * -speed));
     }
 
-    //OnFrame for the Death state
-    void DeathOnFrame()
+    //Handles the Death state
+    private void HandleDeath()
     {
-        Debug.Log("Death.onFrame");
+        print("The crab has died...");
         Death();
         //There is no recovering from death...
     }
+
 
     //Death method (functionality)
     private void Death()
@@ -214,29 +220,30 @@ public class CrabController : MonoBehaviour
     {
         if (Vector3.Distance(player.transform.position, this.transform.position) < crabHuntRadius)
             return true;
-        else 
-            return false; 
+        else
+            return false;
     }
 
 
     //checks if crab has no health
     private bool NoHealth()
     {
-        if(health <= 0.0f)        
-            return true;        
-        else      
-            return false;        
+        if (health <= 0.0f)
+            return true;
+        else
+            return false;
     }
 
 
     //sense if enemy is close enough to attack. This is determined by the crabAttackRadius
     private bool EnemyInAttackRange()
     {
-        if(Vector3.Distance(player.transform.position, this.transform.position) < crabAttackRadius)
+        if (Vector3.Distance(player.transform.position, this.transform.position) < crabAttackRadius)
             return true;
         else
             return false;
     }
+
 
     //determines if the crab is strong enough.
     //If the crab is healthier or just as healthy as the player, returns true.
@@ -244,24 +251,24 @@ public class CrabController : MonoBehaviour
     private bool StrongEnough()
     {
         PlayerController playerController = player.GetComponent<PlayerController>();
-        if (health >= playerController.health)      
-            return true;        
-        else       
-            return false;       
+        if (health >= playerController.health)
+            return true;
+        else
+            return false;
     }
 
 
     //to draw lines between waypoints
     private void OnDrawGizmos()
     {
-        //gizmo drawing for the crab chase radius
+        //gizmo drawing for the crab hunt radius
         Gizmos.color = Color.magenta;
         Gizmos.DrawWireSphere(this.transform.position, crabHuntRadius);
 
         //gizmo drawing for the crab attack radius
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(this.transform.position, crabAttackRadius);
-    
+
         //gizmo drawings for between the crab waypoints
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(positions[0].position, positions[1].position);
