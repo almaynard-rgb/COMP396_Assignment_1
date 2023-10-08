@@ -76,7 +76,7 @@ public class StateMachine
 
 
         //change to newState
-        Debug.LogFormat("*** Changing from state {0} to state {1} ***", currentState, newState);
+        Debug.LogFormat($"*** Changing from state {currentState} to state {newState} ***");
         currentState = newState;
 
 
@@ -96,7 +96,7 @@ public class StateMachine
         }
         else
         {
-            Debug.LogErrorFormat("*** State machine doesn't have the state {0} ***", newStateName);
+            Debug.LogErrorFormat($"*** State machine doesn't have the state {newStateName} ***");
             return;
         }
 

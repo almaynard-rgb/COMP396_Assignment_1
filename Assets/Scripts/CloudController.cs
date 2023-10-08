@@ -16,8 +16,6 @@ public class CloudController : MonoBehaviour
         cloud.transform.Translate(new Vector2((speed * Time.deltaTime), 0));
 
         if (cloud.transform.position.x >= 90)
-        {
             cloud.transform.position = new Vector2(-90, (Random.Range(20.0f, 50.0f)));
-        }
     }
 }
