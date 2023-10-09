@@ -132,6 +132,8 @@ public class CrabFSM : MonoBehaviour
             ChangeCrabState(CrabState.Death);
         else if (EnemyInAttackRange() && StrongEnough())
             ChangeCrabState(CrabState.Attack);
+        else if (!StrongEnough())
+            ChangeCrabState(CrabState.Evade);
     }
 
     //Hunt method (functionality)

@@ -129,6 +129,8 @@ public class CrabController : MonoBehaviour
             stateMachine.ChangeState(death);
         else if (EnemyInAttackRange() && StrongEnough())
             stateMachine.ChangeState(attack);
+        else if(!StrongEnough())
+            stateMachine.ChangeState(evade);
     }
 
     //Hunt method (functionality)
