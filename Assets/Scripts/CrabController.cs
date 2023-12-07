@@ -264,8 +264,11 @@ public class CrabController : MonoBehaviour
         //gizmo drawings for between the crab waypoints
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(positions[0].position, positions[1].position);
+
         Gizmos.DrawLine(positions[1].position, positions[2].position);
+
         Gizmos.DrawLine(positions[2].position, positions[3].position);
+
         Gizmos.DrawLine(positions[3].position, positions[0].position);
     }
 }
