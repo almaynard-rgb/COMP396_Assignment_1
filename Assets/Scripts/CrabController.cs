@@ -13,8 +13,7 @@ public class CrabController : MonoBehaviour
 {
     //player variables
     public GameObject player;
-
-
+    
     //crab variables
     public float health = 100;
     public float speed = 16;
@@ -33,8 +32,6 @@ public class CrabController : MonoBehaviour
     //crab states declared
     public StateMachine stateMachine;
     public StateMachine.State roam, hunt, attack, evade, death;
-
-
 
     // Start is called before the first frame update
     void Start()

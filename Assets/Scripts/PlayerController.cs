@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //flips sprite based on check if playe is facing right
+    //flips sprite based on check if player is facing right
     private void FlipSprite()
     {
         //if facing right flip (true)
